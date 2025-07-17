@@ -1,119 +1,6 @@
+<!-- ✅ index.html (login page structure - starting point) -->
 <!DOCTYPE html>
-<html lang="bn">
-<head>
-  <meta charset="UTF-8">
-  <title>ডাঃ নাজমুল ইসলাম - প্রেসক্রিপশন</title>
-  <style>
-    body {
-      font-family: 'Siyam Rupali', Arial, sans-serif;
-      margin: 40px;
-      padding: 0;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-    .container {
-      width: 100%;
-      max-width: 800px;
-      margin: auto;
-      border: 2px solid #000;
-      padding: 20px;
-    }
-    h1, h2 {
-      text-align: center;
-      margin: 0;
-    }
-    .contact-info {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .section {
-      margin-bottom: 15px;
-    }
-    label {
-      display: inline-block;
-      width: 180px;
-      font-weight: bold;
-    }
-    .rx {
-      font-size: 48px;
-      font-weight: bold;
-      color: #002776;
-      float: right;
-      margin-top: -50px;
-    }
-    .signature {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 50px;
-    }
-    .clinic-time {
-      text-align: center;
-      margin-top: 30px;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>মেসার্স কিষাণ পোল্ট্রি এন্ড ফিস ফিড</h1>
-    <h2>Messrs Kishan Poultry & Fish Feed</h2>
-    <div class="contact-info">
-      Medical College Road, Monirampur Mor, Jamalpur<br>
-      Tel: ০১৯০৬৭২৪২৫৯ | WhatsApp: ০১৯০০৭৮০৯০৮<br>
-      Email: kpff@gmail.com | www.kpff.com
-    </div>
-
-    <h2>ডাঃ নাজমুল ইসলাম<br><small>Dr. Najmul Islam</small></h2>
-    <p style="text-align: center;">Marketing Officer & S.R, Quality Feeds Ltd.<br>
-    Mobile: ০১৯০০৬০০০০০</p>
-
-    <div class="section">
-      <label>মালিকের নাম / Owner’s Name:</label> ___________________________
-    </div>
-    <div class="section">
-      <label>প্রাণীর ধরণ / নাম:</label> ___________________________
-      <span class="rx">Rx</span>
-    </div>
-    <div class="section">
-      <label>বয়স / ওজন:</label> ___________________________
-    </div>
-    <div class="section">
-      <label>তারিখ / Date:</label> ___________________________
-    </div>
-    <div class="section">
-      <label>রোগের লক্ষণ / Symptoms:</label><br>
-      _________________হ____________________________
-    </div>
-    <div class="section">
-      <label>পরীক্ষা / Investigation:</label><br>
-      _____________________________________________
-    </div>
-    <div class="section">
-      <label>রোগ / Diagnosis:</label><br>
-      _____________________________________________
-    </div>
-    <div class="section">
-      <label>পরামর্শ / নির্দেশনা / Advice:</label><br>
-      _____________________________________________<br>
-      _____________________________________________
-    </div>
-    <div class="section">
-      <label>ফলোআপ তারিখ / Follow-up Date:</label> ______________________
-    </div>
-
-    <div class="signature">
-      <div>বাকরুদ্বার</div>
-      <div>ডাক্তার এর স্বাক্ষর</div>
-    </div>
-
-    <div class="clinic-time">
-      ক্লিনিক সময় | Clinic Hours: Sat – Thu | 9AM – 5PM
-    </div>
-  </div>
-</body>
-</html>
-
-<!-- ✅ index.html (login page structure - starting point) --><!DOCTYPE html><html lang="en">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,81 +17,15 @@
     </form>
     <p>Don't have an account? <a href="#" onclick="goToRegister()">Create one</a></p>
     <p><a href="#" onclick="goToReset()">Forgot Password?</a></p>
-  </div>  <script>
+  </div>
+
+  <script>
     function goToRegister() {
       // Load registration form
     }
     function goToReset() {
       // Load password reset form
     }
-    
-    /* ✅ style.css */
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #00c6ff, #0072ff); /* আকাশি+নীল ব্যাকগ্রাউন্ড */
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.login-container {
-  background: #ffffff;
-  color: #333;
-  padding: 30px 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-}
-
-.login-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #0072ff;
-}
-
-form input {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin: 12px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-form button {
-  width: 100%;
-  padding: 12px;
-  background-color: #0072ff;
-  color: white;
-  border: none;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-form button:hover {
-  background-color: #005fcc;
-}
-
-.login-container p {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.login-container a {
-  color: #0072ff;
-  text-decoration: none;
-  font-weight: bold;
-}
-    
-    
-  </script></body>
+  </script>
+</body>
 </html>
