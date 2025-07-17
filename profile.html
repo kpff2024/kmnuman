@@ -96,8 +96,23 @@
     <div id="outputArea"></div>
     <button onclick="downloadPrescription()">⬇️ পিডিএফ ডাউনলোড করুন</button>
   </div>
-</div>
-<script>
+</div><script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script><script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXQgSge6v3tOu-GJtpPqhXwzg2n2nmO2s",
+    authDomain: "kmnuman-a9daa.firebaseapp.com",
+    projectId: "kmnuman-a9daa",
+    storageBucket: "kmnuman-a9daa.appspot.com",
+    messagingSenderId: "132530675488",
+    appId: "1:132530675488:web:xyz123abc456"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+      window.location.href = "index.html";
+    }
+  });
+</script><script>
 let prescriptionId = "";
 
 function addMedicine() {
@@ -120,7 +135,7 @@ function generatePrescriptionID() {
   const y = now.getFullYear();
   const m = (now.getMonth()+1).toString().padStart(2, '0');
   const d = now.getDate().toString().padStart(2, '0');
-  const rand = Math.floor(100000 + Math.random() * 900000); // 6 digit
+  const rand = Math.floor(100 + Math.random() * 900);
   return `${y}${m}${d}${rand}`;
 }
 
@@ -133,8 +148,8 @@ function downloadPrescription() {
   link.click();
 }
 
-// Form Submission
-document.getElementById("prescriptionForm").addEventListener("submit", function(e){
+const form = document.getElementById("prescriptionForm");
+form.addEventListener("submit", function(e){
   e.preventDefault();
   prescriptionId = generatePrescriptionID();
 
@@ -147,38 +162,17 @@ document.getElementById("prescriptionForm").addEventListener("submit", function(
   const diagnosis = document.getElementById("diagnosis").value;
   const note = document.getElementById("note").value;
 
-  let medicines = [];
-  document.querySelectorAll('.medicine-group').forEach(group => {
-    medicines.push({
-      name: group.querySelector('.medName').value,
-      dose: group.querySelector('.medDose').value,
-      time: group.querySelector('.medTime').value,
-      days: group.querySelector('.medDays').value,
-      comment: group.querySelector('.medComment').value
-    });
+  let medicineHTML = "";
+  document.querySelectorAll('.medicine-group').forEach((group, i) => {
+    const medName = group.querySelector('.medName').value;
+    const dose = group.querySelector('.medDose').value;
+    const time = group.querySelector('.medTime').value;
+    const days = group.querySelector('.medDays').value;
+    const comment = group.querySelector('.medComment').value;
+    medicineHTML += `${i+1}. ${medName}, ${dose} বার, ${time}, ${days} দিন, মন্তব্য: ${comment}<br>`;
   });
 
-  const prescription = {
-    id: prescriptionId,
-    name,
-    phone,
-    address,
-    type,
-    symptoms,
-    tests,
-    diagnosis,
-    medicines,
-    note,
-    date: new Date().toLocaleString()
-  };
-
-  // Save to localStorage
-  let data = JSON.parse(localStorage.getItem("prescriptions") || "[]");
-  data.push(prescription);
-  localStorage.setItem("prescriptions", JSON.stringify(data));
-
-  // Show result
-  let html = `
+  const html = `
     <b>প্রেসক্রিপশন আইডি:</b> ${prescriptionId}<br>
     <b>নাম:</b> ${name} <br>
     <b>ফোন:</b> ${phone} <br>
@@ -186,13 +180,10 @@ document.getElementById("prescriptionForm").addEventListener("submit", function(
     <b>লক্ষণ:</b> ${symptoms} <br>
     <b>পরীক্ষা:</b> ${tests} <br>
     <b>রোগ:</b> ${diagnosis} <br><br>
-    <b>মেডিসিন:</b><br>
+    <b>মেডিসিন:</b><br> ${medicineHTML} <br>
+    <b>নোট:</b> ${note} <br>
+    <br><i>ডাক্তার: স্বয়ংক্রিয় নাম</i>
   `;
-  prescription.medicines.forEach((med, i) => {
-    html += `${i + 1}. ${med.name}, ${med.dose} বার, ${med.time}, ${med.days} দিন, মন্তব্য: ${med.comment}<br>`;
-  });
-  html += `<br><b>নোট:</b> ${note}<br><br><i>ডাক্তার: স্বয়ংক্রিয় নাম</i>`;
-
   document.getElementById("outputArea").innerHTML = html;
   document.getElementById("prescriptionDisplay").style.display = "block";
 });
