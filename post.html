@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>পোস্ট করুন</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f3f4f6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px 0;
+    }
+    .block {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .image-preview {
+      max-width: 100%;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>নতুন পোস্ট করুন</h2>
+
+    <label>📸 ছবি (৩x৫ ইঞ্চি):</label>
+    <input type="file" accept="image/*" onchange="previewImage(event)">
+    <img id="imgPreview" class="image-preview" style="display:none;" />
+
+    <label>🖋️ শিরোনাম:</label>
+    <input type="text" id="title" placeholder="পোস্ট শিরোনাম দিন">
+
+    <div id="detailsContainer">
+      <label>📄 বিস্তারিত:</label>
+      <textarea placeholder="বিস্তারিত লিখুন..." class="detail"></textarea>
+    </div>
+    
+    <button onclick="addDetailBlock()">➕ আরও বিস্তারিত যোগ করুন</button>
+    
+    <br><br>
+    <button onclick="submitPost()">✅ পোস্ট করুন</button>
+
+    <div id="postResult" style="margin-top: 30px;"></div>
+  </div>
+
+  <script>
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function(){
+        const output = document.getElementById('imgPreview');
+        output.src = reader.result;
+        output.style.display = 'block';
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function addDetailBlock() {
+      const div = document.createElement("div");
+      div.className = "block";
+      div.innerHTML = `
+        <button class="delete-btn" onclick="this.parentElement.remove()">×</button>
+        <textarea placeholder="বিস্তারিত লিখুন..." class="detail"></textarea>
+      `;
+      document.getElementById("detailsContainer").appendChild(div);
+    }
+
+    function submitPost() {
+      const title = document.getElementById("title").value;
+      const details = [...document.querySelectorAll(".detail")].map(t => t.value);
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      const date = now.toLocaleDateString();
+      
+      const user = {
+        name: "ডাঃ মাহমুদ", // 🔁 লগইন ইউজার ডাটা দিয়ে পরিবর্তনযোগ্য
+        phone: "০১৭xxxxxxxx"
+      };
+
+      const html = `
+        <hr>
+        <p><strong>👤 ${user.name} (${user.phone})</strong></p>
+        <p>📅 ${date} 🕒 ${time}</p>
+        ${document.getElementById("imgPreview").src ? `<img src="${document.getElementById("imgPreview").src}" style="width: 100%; margin: 10px 0;" />` : ""}
+        <h3>${title}</h3>
+        ${details.map(d => `<p>${d}</p>`).join("")}
+        <br>
+        <button onclick="likePost(this)">❤️ অনেক সুন্দর (<span>0</span>)</button>
+        <button onclick="showCommentBox(this)">✍️ পরামর্শ</button>
+        <div class="comment-box" style="display:none; margin-top:10px;">
+          <input type="text" placeholder="আপনার নাম">
+          <textarea placeholder="আপনার পরামর্শ লিখুন"></textarea>
+          <button onclick="submitComment(this)">📤 পরামর্শ করুন</button>
+        </div>
+        <div class="comment-output"></div>
+      `;
+      document.getElementById("postResult").innerHTML = html;
+    }
+
+    function likePost(btn) {
+      const countSpan = btn.querySelector("span");
+      let count = parseInt(countSpan.innerText);
+      countSpan.innerText = count + 1;
+    }
+
+    function showCommentBox(btn) {
+      btn.nextElementSibling.style.display = 'block';
+    }
+
+    function submitComment(btn) {
+      const box = btn.parentElement;
+      const name = box.querySelector("input").value;
+      const text = box.querySelector("textarea").value;
+      const output = box.parentElement.querySelector(".comment-output");
+      output.innerHTML += `<p><strong>${name}:</strong> ${text}</p>`;
+      box.style.display = "none";
+    }
+  </script>
+</body>
+</html>
