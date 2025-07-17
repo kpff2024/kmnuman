@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>প্রেসক্রিপশন সার্চ</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f8f9fa;
+      padding: 20px;
+    }
+    .search-box {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .prescription-item {
+      background: #f0f0f0;
+      padding: 8px;
+      margin: 6px 0;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="search-box">
+    <h2>প্রেসক্রিপশন সার্চ করুন</h2>
+
+    <label>প্রেসক্রিপশন আইডি দিয়ে সার্চ</label>
+    <input type="text" id="searchById" placeholder="যেমন: PRX-12345678">
+    <button onclick="searchById()">🔍 সার্চ</button>
+
+    <hr>
+
+    <label>ফোন নাম্বার দিয়ে সার্চ</label>
+    <input type="text" id="searchByPhone" placeholder="যেমন: ০১৭xxxxxxxx">
+    <button onclick="searchByPhone()">📞 সার্চ</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // ডেমো ডেটা (পরে সার্ভারে যুক্ত করব)
+    const demoData = [
+      {
+        id: "PRX-87453925",
+        phone: "01712345678",
+        date: "১৫ জুলাই ২০২৫",
+        farmer: "মোঃ রফিক",
+        disease: "নিউক্যাসল",
+        viewUrl: "prescription.html?id=PRX-87453925"
+      },
+      {
+        id: "PRX-54781236",
+        phone: "01712345678",
+        date: "০৮ জুলাই ২০২৫",
+        farmer: "মোঃ রফিক",
+        disease: "কলেরা",
+        viewUrl: "prescription.html?id=PRX-54781236"
+      }
+    ];
+
+    function searchById() {
+      const id = document.getElementById("searchById").value.trim();
+      const result = demoData.find(p => p.id === id);
+
+      if (result) {
+        document.getElementById("result").innerHTML = `
+          <p><strong>প্রেসক্রিপশন পাওয়া গেছে:</strong></p>
+          <div class="prescription-item" onclick="window.location.href='${result.viewUrl}'">
+            আইডি: ${result.id} | রোগ: ${result.disease} | তারিখ: ${result.date}
+          </div>
+        `;
+      } else {
+        document.getElementById("result").innerHTML = `<p style="color: red;">ভুল হয়েছে, আবার চেষ্টা করুন।</p>`;
+      }
+    }
+
+    function searchByPhone() {
+      const phone = document.getElementById("searchByPhone").value.trim();
+      const results = demoData.filter(p => p.phone === phone);
+
+      if (results.length > 0) {
+        let html = `<p><strong>সকল প্রেসক্রিপশন:</strong></p>`;
+        results.forEach(r => {
+          html += `
+            <div class="prescription-item" onclick="window.location.href='${r.viewUrl}'">
+              আইডি: ${r.id} | রোগ: ${r.disease} | তারিখ: ${r.date}
+            </div>
+          `;
+        });
+        document.getElementById("result").innerHTML = html;
+      } else {
+        document.getElementById("result").innerHTML = `<p style="color: red;">এই নাম্বারে কোন প্রেসক্রিপশন নেই।</p>`;
+      }
+    }
+  </script>
+
+</body>
+</html>
