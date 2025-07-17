@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>পাসওয়ার্ড রিসেট করুন</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .step { display: none; }
+    .step.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>🔁 পাসওয়ার্ড রিসেট</h2>
+
+    <!-- ধাপ ১: ফোন নাম্বার -->
+    <div class="step active" id="step1">
+      <p>আপনার একাউন্ট এর ফোন নাম্বার দিন:</p>
+      <input type="tel" id="resetPhone" placeholder="ফোন নাম্বার" maxlength="11" required>
+      <button onclick="goToStep2()">কোড পাঠান</button>
+    </div>
+
+    <!-- ধাপ ২: OTP ইনপুট -->
+    <div class="step" id="step2">
+      <p>আপনার নাম্বারে পাঠানো ৪ সংখ্যার কোড লিখুন:</p>
+      <input type="text" id="resetOtp" placeholder="৪ সংখ্যার কোড" maxlength="4" required>
+      <button onclick="goToStep3()">যাচাই করুন</button>
+    </div>
+
+    <!-- ধাপ ৩: নতুন পাসওয়ার্ড -->
+    <div class="step" id="step3">
+      <p>নতুন ৬ সংখ্যার পাসওয়ার্ড দিন:</p>
+      <input type="password" id="newPass" placeholder="৬ সংখ্যার পাসওয়ার্ড" maxlength="6" required>
+      <button onclick="resetComplete()">পাসওয়ার্ড সেট করুন</button>
+    </div>
+  </div>
+
+  <script>
+    function goToStep2() {
+      document.getElementById('step1').classList.remove('active');
+      document.getElementById('step2').classList.add('active');
+    }
+
+    function goToStep3() {
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('step3').classList.add('active');
+    }
+
+    function resetComplete() {
+      alert(\"আপনার পাসওয়ার্ড রিসেট হয়েছে! এখন লগইন করুন।\");
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
