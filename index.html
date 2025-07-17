@@ -1,78 +1,85 @@
-<!DOCTYPE html>
-<html lang="bn">
+<!DOCTYPE html><html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <title>লগইন</title>
+  <title>Login</title>
   <style>
     body {
+      background: #eef2f7;
       font-family: 'Noto Sans Bengali', sans-serif;
-      background: #f0f2f5;
-      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    form {
-      max-width: 400px;
-      margin: auto;
+    .login-box {
       background: white;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
     }
     input {
-      display: block;
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
+      margin-top: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
     button {
+      margin-top: 20px;
       padding: 10px;
       width: 100%;
-      background: #28a745;
+      background: #007bff;
       color: white;
       border: none;
       border-radius: 5px;
-      cursor: pointer;
+      font-size: 16px;
     }
-    p {
+    a {
+      display: block;
       text-align: center;
       margin-top: 15px;
+      color: #007bff;
+      text-decoration: none;
     }
   </style>
 </head>
-<body>
+<body><div class="login-box">
+  <h2>লগইন করুন</h2>
+  <input type="text" id="phone" placeholder="ফোন নম্বর">
+  <input type="password" id="password" placeholder="পাসওয়ার্ড">
+  <button onclick="login()">লগইন করুন</button>
+  <a href="register.html">নতুন একাউন্ট খুলুন</a>
+</div><!-- Firebase --><script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script><script>
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXQgSge6v3tOu-GJtpPqhXwzg2n2nmO2s",
+    authDomain: "kmnuman-a9daa.firebaseapp.com",
+    projectId: "kmnuman-a9daa",
+    storageBucket: "kmnuman-a9daa.appspot.com",
+    messagingSenderId: "132530675488",
+    appId: "1:132530675488:web:xyz123abc456"
+  };
+  firebase.initializeApp(firebaseConfig);
 
-  <form id="loginForm">
-    <h2>লগইন করুন</h2>
-    <input type="text" id="phone" placeholder="ফোন নম্বর" required>
-    <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
-    <button type="submit">লগইন</button>
-    <p>একাউন্ট নেই? <a href="register.html">রেজিস্টার করুন</a></p>
-  </form>
+  // Login function
+  function login() {
+    const phone = document.getElementById('phone').value;
+    const password = document.getElementById('password').value;
+    const email = phone + "@kmnuman.com"; // Custom email format using phone
 
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const phone = document.getElementById("phone").value;
-      const password = document.getElementById("password").value;
-
-      const savedUser = JSON.parse(localStorage.getItem("user_" + phone));
-
-      if (!savedUser) {
-        alert("ব্যবহারকারী খুঁজে পাওয়া যায়নি!");
-        return;
-      }
-
-      if (savedUser.password !== password) {
-        alert("পাসওয়ার্ড ভুল!");
-        return;
-      }
-
-      // লগইন সফল
-      localStorage.setItem("loggedInUser", JSON.stringify(savedUser));
-      window.location.href = "profile.html";
-    });
-  </script>
-
-</body>
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        window.location.href = "home.html"; // Redirect after login
+      })
+      .catch((error) => {
+        alert("লগইন ব্যর্থ: " + error.message);
+      });
+  }
+</script></body>
 </html>
