@@ -1,67 +1,200 @@
-<!DOCTYPE html>
-<html lang="bn">
+<!DOCTYPE html><html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <title>প্রোফাইল</title>
+  <title>প্রেসক্রিপশন তৈরি</title>
   <style>
     body {
       font-family: 'Noto Sans Bengali', sans-serif;
-      background: #f2f2f2;
+      background: #eef2f7;
       margin: 0;
       padding: 0;
     }
     .container {
-      max-width: 800px;
-      margin: 40px auto;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
       background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-top: 30px;
     }
     h2 {
       text-align: center;
-      color: #444;
-    }
-    .profile-section {
-      margin-top: 20px;
-    }
-    .profile-section p {
-      font-size: 18px;
-      margin: 10px 0;
-      padding: 10px;
-      background: #f9f9f9;
-      border-left: 5px solid #4A90E2;
-    }
-    .label {
-      font-weight: bold;
       color: #333;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .flex-row {
+      display: flex;
+      gap: 10px;
+    }
+    .flex-row > div {
+      flex: 1;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .medicine-group {
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+    }
+    #prescriptionDisplay {
+      display: none;
+      margin-top: 30px;
+      padding: 20px;
+      border: 2px dashed #007bff;
+      background: #fff;
+    }
+    .section-title {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
+<div class="container">
+  <h2>প্রেসক্রিপশন তৈরি করুন</h2>
+  <form id="prescriptionForm">
+    <div class="section-title">খামারির তথ্য</div>
+    <input type="text" placeholder="খামারি নাম" id="farmerName" required>
+    <input type="text" placeholder="ফোন নম্বর" id="farmerPhone" required>
+    <input type="text" placeholder="ঠিকানা" id="address">
+    <input type="text" placeholder="খামারি ধরন (পোল্ট্রি/ডেইরি ইত্যাদি)" id="farmerType"><div class="section-title">রোগ সংক্রান্ত তথ্য</div>
+<textarea placeholder="লক্ষণ" id="symptoms"></textarea>
+<textarea placeholder="পরীক্ষা" id="tests"></textarea>
+<textarea placeholder="রোগ নির্ণয়" id="diagnosis"></textarea>
 
-  <div class="container">
-    <h2>ব্যক্তিগত তথ্য</h2>
-    <div class="profile-section">
-      <p><span class="label">নাম:</span> <span id="userName">লোড হচ্ছে...</span></p>
-      <p><span class="label">পেশা:</span> <span id="userProfession">লোড হচ্ছে...</span></p>
-      <p><span class="label">শিক্ষাগত যোগ্যতা:</span> <span id="userEducation">লোড হচ্ছে...</span></p>
-      <p><span class="label">ফোন নম্বর:</span> <span id="userPhone">লোড হচ্ছে...</span></p>
-    </div>
+<div class="section-title">মেডিসিন</div>
+<div id="medicineContainer"></div>
+<button type="button" onclick="addMedicine()">➕ ওষুধ যুক্ত করুন</button>
+
+<div class="section-title">নোট</div>
+<textarea id="note" placeholder="নোট"></textarea>
+
+<button type="submit">✅ প্রেসক্রিপশন তৈরি করুন</button>
+
+  </form>  <div id="prescriptionDisplay">
+    <h3>📄 তৈরি হওয়া প্রেসক্রিপশন</h3>
+    <div id="outputArea"></div>
+    <button onclick="downloadPrescription()">⬇️ পিডিএফ ডাউনলোড করুন</button>
   </div>
+</div>
+<script>
+let prescriptionId = "";
 
-  <script>
-    const user = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (!user) {
-      alert("আপনি লগইন করেননি!");
-      window.location.href = "login.html";
-    } else {
-      document.getElementById("userName").textContent = user.name;
-      document.getElementById("userProfession").textContent = user.profession;
-      document.getElementById("userEducation").textContent = user.education;
-      document.getElementById("userPhone").textContent = user.phone;
-    }
-  </script>
+function addMedicine() {
+  const container = document.getElementById("medicineContainer");
+  const div = document.createElement("div");
+  div.className = "medicine-group";
+  div.innerHTML = `
+    <input type="text" placeholder="ওষুধের নাম" class="medName">
+    <input type="text" placeholder="কত বার" class="medDose">
+    <input type="text" placeholder="কখন" class="medTime">
+    <input type="text" placeholder="কত দিন" class="medDays">
+    <input type="text" placeholder="মন্তব্য" class="medComment">
+    <button type="button" onclick="this.parentNode.remove()">❌ মুছুন</button>
+  `;
+  container.appendChild(div);
+}
 
-</body>
+function generatePrescriptionID() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = (now.getMonth()+1).toString().padStart(2, '0');
+  const d = now.getDate().toString().padStart(2, '0');
+  const rand = Math.floor(100000 + Math.random() * 900000); // 6 digit
+  return `${y}${m}${d}${rand}`;
+}
+
+function downloadPrescription() {
+  const content = document.getElementById('outputArea').innerText;
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "prescription_" + prescriptionId + ".txt";
+  link.click();
+}
+
+// Form Submission
+document.getElementById("prescriptionForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  prescriptionId = generatePrescriptionID();
+
+  const name = document.getElementById("farmerName").value;
+  const phone = document.getElementById("farmerPhone").value;
+  const address = document.getElementById("address").value;
+  const type = document.getElementById("farmerType").value;
+  const symptoms = document.getElementById("symptoms").value;
+  const tests = document.getElementById("tests").value;
+  const diagnosis = document.getElementById("diagnosis").value;
+  const note = document.getElementById("note").value;
+
+  let medicines = [];
+  document.querySelectorAll('.medicine-group').forEach(group => {
+    medicines.push({
+      name: group.querySelector('.medName').value,
+      dose: group.querySelector('.medDose').value,
+      time: group.querySelector('.medTime').value,
+      days: group.querySelector('.medDays').value,
+      comment: group.querySelector('.medComment').value
+    });
+  });
+
+  const prescription = {
+    id: prescriptionId,
+    name,
+    phone,
+    address,
+    type,
+    symptoms,
+    tests,
+    diagnosis,
+    medicines,
+    note,
+    date: new Date().toLocaleString()
+  };
+
+  // Save to localStorage
+  let data = JSON.parse(localStorage.getItem("prescriptions") || "[]");
+  data.push(prescription);
+  localStorage.setItem("prescriptions", JSON.stringify(data));
+
+  // Show result
+  let html = `
+    <b>প্রেসক্রিপশন আইডি:</b> ${prescriptionId}<br>
+    <b>নাম:</b> ${name} <br>
+    <b>ফোন:</b> ${phone} <br>
+    <b>ঠিকানা:</b> ${address} (${type}) <br><br>
+    <b>লক্ষণ:</b> ${symptoms} <br>
+    <b>পরীক্ষা:</b> ${tests} <br>
+    <b>রোগ:</b> ${diagnosis} <br><br>
+    <b>মেডিসিন:</b><br>
+  `;
+  prescription.medicines.forEach((med, i) => {
+    html += `${i + 1}. ${med.name}, ${med.dose} বার, ${med.time}, ${med.days} দিন, মন্তব্য: ${med.comment}<br>`;
+  });
+  html += `<br><b>নোট:</b> ${note}<br><br><i>ডাক্তার: স্বয়ংক্রিয় নাম</i>`;
+
+  document.getElementById("outputArea").innerHTML = html;
+  document.getElementById("prescriptionDisplay").style.display = "block";
+});
+</script></body>
 </html>
