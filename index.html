@@ -1,31 +1,78 @@
-<!-- ✅ index.html (login page structure - starting point) -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KPFF Login</title>
-  <link rel="stylesheet" href="style.css">
+  <title>লগইন</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f0f2f5;
+      padding: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    p {
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>🔐 Login to KPFF</h2>
-    <form id="loginForm">
-      <input type="tel" placeholder="Phone Number" required maxlength="11">
-      <input type="password" placeholder="6-digit Password" required maxlength="6">
-      <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="#" onclick="goToRegister()">Create one</a></p>
-    <p><a href="#" onclick="goToReset()">Forgot Password?</a></p>
-  </div>
+
+  <form id="loginForm">
+    <h2>লগইন করুন</h2>
+    <input type="text" id="phone" placeholder="ফোন নম্বর" required>
+    <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
+    <button type="submit">লগইন</button>
+    <p>একাউন্ট নেই? <a href="register.html">রেজিস্টার করুন</a></p>
+  </form>
 
   <script>
-    function goToRegister() {
-      // Load registration form
-    }
-    function goToReset() {
-      // Load password reset form
-    }
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const phone = document.getElementById("phone").value;
+      const password = document.getElementById("password").value;
+
+      const savedUser = JSON.parse(localStorage.getItem("user_" + phone));
+
+      if (!savedUser) {
+        alert("ব্যবহারকারী খুঁজে পাওয়া যায়নি!");
+        return;
+      }
+
+      if (savedUser.password !== password) {
+        alert("পাসওয়ার্ড ভুল!");
+        return;
+      }
+
+      // লগইন সফল
+      localStorage.setItem("loggedInUser", JSON.stringify(savedUser));
+      window.location.href = "profile.html";
+    });
   </script>
+
 </body>
 </html>
