@@ -1,61 +1,18 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <title>হোম পেইজ</title>
-  <style>
-    body {
-      font-family: 'Noto Sans Bengali', sans-serif;
-      background: #f0f8ff;
-      padding: 20px;
-    }
-    nav {
-      background: #007bff;
-      padding: 10px;
-      border-radius: 5px;
-    }
-    nav a {
-      color: white;
-      margin-right: 15px;
-      text-decoration: none;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <title>হোম</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<nav>
-  <a href="profile.html">প্রোফাইল</a>
-  <a href="prescription.html">প্রেসক্রিপশন</a>
-  <a href="search.html">সার্চ</a>
-  <a href="#" onclick="logout()">লগআউট</a>
-</nav>
-
-<h2>স্বাগতম হোম পেইজে!</h2>
-
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBXQgSge6v3tOu-GJtpPqhXwzg2n2nmO2s",
-    authDomain: "kmnuman-a9daa.firebaseapp.com",
-    projectId: "kmnuman-a9daa",
-    storageBucket: "kmnuman-a9daa.appspot.com",
-    messagingSenderId: "132530675488",
-    appId: "1:132530675488:web:xyz123abc456"
-  };
-  firebase.initializeApp(firebaseConfig);
-
-  firebase.auth().onAuthStateChanged(user => {
-    if (!user) {
-      window.location.href = "index.html";
-    }
-  });
-
-  function logout() {
-    firebase.auth().signOut().then(() => {
-      window.location.href = "index.html";
-    });
-  }
-</script>
+  <div class="container">
+    <h1>স্বাগতম!</h1>
+    <ul>
+      <li><a href="prescription.html">নতুন প্রেসক্রিপশন</a></li>
+      <li><a href="search.html">প্রেসক্রিপশন খুঁজুন</a></li>
+      <li><a href="profile.html">প্রোফাইল</a></li>
+    </ul>
+  </div>
 </body>
 </html>
