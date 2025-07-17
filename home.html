@@ -2,65 +2,60 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>হোম | KPFF</title>
-  <link rel="stylesheet" href="style.css">
+  <title>হোম পেইজ</title>
   <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f0f8ff;
+      padding: 20px;
+    }
     nav {
-      background: #0077b6;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      background: #007bff;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    nav a {
       color: white;
-      flex-wrap: wrap;
-    }
-    nav .logo {
-      font-size: 22px;
-      font-weight: bold;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 15px;
-      padding: 0;
-      margin: 0;
-    }
-    nav ul li a {
-      color: white;
+      margin-right: 15px;
       text-decoration: none;
-      font-weight: bold;
-    }
-    main {
-      padding: 20px;
-      background: #f1f1f1;
-    }
-    .welcome {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">KPFF পোর্টাল</div>
-    <ul>
-      <li><a href="prescription.html">🧾 নতুন প্রেসক্রিপশন</a></li>
-      <li><a href="post.html">📝 পোস্ট করুন</a></li>
-      <li><a href="search.html">🔍 প্রেসক্রিপশন সার্চ</a></li>
-      <li><a href="profile.html">🙍 প্রোফাইল</a></li>
-      <li><a href="index.html">🔓 লগআউট</a></li>
-    </ul>
-  </nav>
+<nav>
+  <a href="profile.html">প্রোফাইল</a>
+  <a href="prescription.html">প্রেসক্রিপশন</a>
+  <a href="search.html">সার্চ</a>
+  <a href="#" onclick="logout()">লগআউট</a>
+</nav>
 
-  <main>
-    <div class="welcome">
-      <h2>স্বাগতম!</h2>
-      <p>আপনি সফলভাবে লগইন করেছেন। আপনার প্রয়োজনীয় মেনু বারে অপশন থেকে নির্বাচন করুন।</p>
-    </div>
-  </main>
+<h2>স্বাগতম হোম পেইজে!</h2>
 
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXQgSge6v3tOu-GJtpPqhXwzg2n2nmO2s",
+    authDomain: "kmnuman-a9daa.firebaseapp.com",
+    projectId: "kmnuman-a9daa",
+    storageBucket: "kmnuman-a9daa.appspot.com",
+    messagingSenderId: "132530675488",
+    appId: "1:132530675488:web:xyz123abc456"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+      window.location.href = "index.html";
+    }
+  });
+
+  function logout() {
+    firebase.auth().signOut().then(() => {
+      window.location.href = "index.html";
+    });
+  }
+</script>
 </body>
 </html>
