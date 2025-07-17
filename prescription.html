@@ -1,1 +1,95 @@
-<!DOCTYPE html><html><head><meta charset='UTF-8'><title>প্রেসক্রিপশন তৈরি</title><link rel='stylesheet' href='style.css'></head><body><div class='container'><h2>প্রেসক্রিপশন তৈরি</h2><p>এখানে প্রেসক্রিপশন ফর্ম থাকবে (আগে দেওয়া কোড ব্যবহার করো)</p></div></body></html>
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>প্রেসক্রিপশন তৈরি</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    .prescription-container {
+      width: 794px;
+      height: 1123px;
+      background: url('prescription_bg.jpg') no-repeat center center;
+      background-size: cover;
+      padding: 50px 40px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .info, .section {
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #000;
+    }
+    .info span {
+      display: inline-block;
+      width: 130px;
+      font-weight: bold;
+    }
+    .footer {
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: red;
+    }
+    .download-btn {
+      margin: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="prescription" class="prescription-container">
+    <div class="info"><span>Owner's Name:</span> <span id="ownerName">মোঃ নূমান</span></div>
+    <div class="info"><span>Address:</span> জামালপুর</div>
+    <div class="info"><span>Species:</span> গরু</div>
+    <div class="info"><span>Age:</span> ৩ বছর</div>
+    <div class="info"><span>Gender:</span> Male</div>
+
+    <div class="section"><strong>Clinical History:</strong> ২ দিন ধরে খাওয়া বন্ধ</div>
+    <div class="section"><strong>Clinical Sign:</strong> জ্বর, দুর্বলতা</div>
+    <div class="section"><strong>Tentative Diagnosis:</strong> হিটস্ট্রোক</div>
+    <div class="section"><strong>Rx:</strong><br>
+      1. প্যারাসিটামল 500mg<br>
+      2. অ্যান্টিবায়োটিক ইনজেকশন<br>
+    </div>
+    <div class="section"><strong>Advice:</strong> ঠাণ্ডা পরিবেশে রাখুন, খাবার সময়মত দিন</div>
+
+    <div class="footer">বি. দ্রঃ চিকিৎসা পরির্বতন নিষেধ, সংরক্ষণের পরামর্শ দিয়ে ছেড়ে দিন এবং রেফারেন্স ছাড়া ডাক্তারদের চিকিৎসা নেওয়া থেকে বিরত থাকুন।</div>
+  </div>
+
+  <button class="download-btn" onclick="downloadJPG()">JPG ডাউনলোড করুন</button>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBXQgSge6v3tOu-GJtpPqhXwzg2n2nmO2s",
+      authDomain: "kmnuman-a9daa.firebaseapp.com",
+      projectId: "kmnuman-a9daa",
+      storageBucket: "kmnuman-a9daa.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    function downloadJPG() {
+      const target = document.getElementById('prescription');
+      html2canvas(target).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'prescription.jpg';
+        link.href = canvas.toDataURL('image/jpeg');
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>
