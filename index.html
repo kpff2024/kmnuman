@@ -1,1 +1,39 @@
-<!-- Login Page HTML Code Here -->
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>লগইন করুন</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="firebase-init.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>🔐 লগইন করুন</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="📧 ইমেইল লিখুন" required>
+      <input type="password" id="password" placeholder="🔑 পাসওয়ার্ড লিখুন" required>
+      <button type="submit">➡️ লগইন</button>
+    </form>
+    <p>নতুন একাউন্ট? <a href="register.html">রেজিস্টার করুন</a></p>
+  </div>
+
+  <script type="module">
+    import { auth } from './firebase-init.js';
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const form = document.getElementById("loginForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = form.email.value;
+      const password = form.password.value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "home.html";
+      } catch (error) {
+        alert("লগইন ব্যর্থ: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
