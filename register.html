@@ -1,1 +1,90 @@
-<!-- Registration Page HTML Code Here -->
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>রেজিস্ট্রেশন</title>
+  <style>
+    body {
+      background: #f2f2f2;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .register-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 { text-align: center; color: #333; }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="register-box">
+  <h2>রেজিস্ট্রেশন করুন</h2>
+  <input type="text" id="phone" placeholder="ফোন নম্বর">
+  <input type="password" id="password" placeholder="পাসওয়ার্ড (৬ ডিজিট)">
+  <button onclick="register()">রেজিস্ট্রেশন করুন</button>
+  <a href="index.html">লগইন করুন</a>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXQgSge6v3tOu-GJtpPqhXwzg2n2nmO2s",
+    authDomain: "kmnuman-a9daa.firebaseapp.com",
+    projectId: "kmnuman-a9daa",
+    storageBucket: "kmnuman-a9daa.appspot.com",
+    messagingSenderId: "132530675488",
+    appId: "1:132530675488:web:xyz123abc456"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  function register() {
+    const phone = document.getElementById('phone').value;
+    const password = document.getElementById('password').value;
+    const email = phone + "@kmnuman.com";
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        alert("রেজিস্ট্রেশন সফল হয়েছে। এখন লগইন করুন।");
+        window.location.href = "index.html";
+      })
+      .catch((error) => {
+        alert("রেজিস্ট্রেশন ব্যর্থ: " + error.message);
+      });
+  }
+</script>
+</body>
+</html>
