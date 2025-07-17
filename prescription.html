@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>প্রেসক্রিপশন</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      background: #f0f0f0;
+      font-family: 'Arial', sans-serif;
+    }
+    .wrapper {
+      max-width: 800px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    #prescriptionPreview {
+      background: white;
+      width: 794px; /* A4 width in px @96dpi */
+      height: 1123px; /* A4 height in px @96dpi */
+      padding: 30px;
+      position: relative;
+      color: black;
+      font-size: 14px;
+      font-family: 'Siyam Rupali', 'Noto Sans Bengali', sans-serif;
+    }
+
+    .top-header {
+      height: 3in;
+      border-bottom: 2px solid black;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .farmer-info {
+      margin-top: 20px;
+      height: 1in;
+      font-weight: bold;
+    }
+
+    .prescription-body {
+      display: flex;
+      height: calc(100% - 7in);
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+      margin: 20px 0;
+    }
+
+    .left-col {
+      width: 50%;
+      padding: 10px;
+      border-right: 2px solid black;
+    }
+
+    .right-col {
+      width: 50%;
+      padding: 10px;
+    }
+
+    .medicine {
+      margin-bottom: 5px;
+    }
+
+    .footer {
+      height: 3in;
+      text-align: center;
+      border-top: 2px solid black;
+      font-size: 13px;
+      padding-top: 10px;
+    }
+
+    .signature {
+      position: absolute;
+      bottom: 3.3in;
+      right: 40px;
+      font-weight: bold;
+    }
+
+    .download-btn {
+      margin-top: 20px;
+      text-align: center;
+    }
+    button {
+      background: green;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div id="prescriptionPreview">
+      <div class="top-header">
+        <h2>প্রেসক্রিপশন</h2>
+        <p>প্রেস্ক্রিপশন আইডি: PRX-87453925</p>
+        <p>তারিখ: ১৫ জুলাই ২০২৫</p>
+      </div>
+
+      <div class="farmer-info">
+        নাম: মোঃ রফিক, ফোন: ০১৭xxxxxxxx, ঠিকানা: জামালপুর, খামার: ব্রয়লার
+      </div>
+
+      <div class="prescription-body">
+        <div class="left-col">
+          <h4>রোগের লক্ষণ</h4>
+          <p>ডানা ঝুলে পড়া, খাওয়ার রুচি নেই</p>
+
+          <h4>পরীক্ষা</h4>
+          <p>রক্ত পরীক্ষা, বিষক্রিয়া</p>
+
+          <h4>রোগ</h4>
+          <p>নিউক্যাসল ডিজিজ</p>
+        </div>
+
+        <div class="right-col">
+          <h4>ওষুধসমূহ</h4>
+          <div class="medicine">1. Bioxin - সকালে, ৩ বেলা, ৫ দিন</div>
+          <div class="medicine">2. Livol - রাতে, ২ বেলা, ৭ দিন</div>
+          <div class="medicine">3. C-vet - দুপুরে, ১ বেলা, ৩ দিন</div>
+
+          <h4>নোট</h4>
+          <p>প্রতিদিন পরিচ্ছন্নতা বজায় রাখুন। খামার বন্ধ রাখুন।</p>
+        </div>
+      </div>
+
+      <div class="signature">
+        ডাক্তার: ডা. মেহেদী হাসান
+      </div>
+
+      <div class="footer">
+        <p>মেসার্স কিষাণ পোল্ট্রি এন্ড ফিস ফিড, কলেজ রোড, জামালপুর</p>
+        <p>ফোন: ০১৯০৬৭২৪২৫৯ | ই-মেইল: kpff2024@gmail.com</p>
+        <p>Web: https://kpff2024.github.io</p>
+      </div>
+    </div>
+
+    <div class="download-btn">
+      <button onclick="downloadPrescription()">📥 PNG ডাউনলোড করুন</button>
+    </div>
+  </div>
+
+  <script>
+    function downloadPrescription() {
+      const element = document.getElementById('prescriptionPreview');
+      html2canvas(element).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'prescription.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+  </script>
+
+</body>
+</html>
