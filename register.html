@@ -2,22 +2,68 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>নতুন একাউন্ট খুলুন</title>
-  <link rel="stylesheet" href="style.css">
+  <title>একাউন্ট তৈরি করুন</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #eef2f7;
+      padding: 20px;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    input {
+      display: block;
+      margin-bottom: 15px;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>নতুন একাউন্ট খুলুন</h2>
-    <form action="otp.html" method="POST">
-      <input type="text" name="name" placeholder="নাম" required>
-      <input type="text" name="profession" placeholder="পেশা" required>
-      <input type="text" name="education" placeholder="শিক্ষাগত যোগ্যতা" required>
-      <input type="tel" name="phone" placeholder="ফোন নাম্বার" pattern="[0-9]{11}" required>
-      <input type="password" name="password" placeholder="৬ সংখ্যার পাসওয়ার্ড" pattern="[0-9]{6}" required>
-      <button type="submit">সাবমিট করুন</button>
-    </form>
-    <p>আগেই একাউন্ট আছে? <a href="index.html">লগইন করুন</a></p>
-  </div>
+  <form id="signupForm">
+    <h2>নতুন একাউন্ট তৈরি করুন</h2>
+    <input type="text" placeholder="নাম" id="name" required>
+    <input type="text" placeholder="পেশা" id="profession" required>
+    <input type="text" placeholder="শিক্ষাগত যোগ্যতা" id="education" required>
+    <input type="text" placeholder="ফোন নম্বর" id="phone" required>
+    <input type="password" placeholder="৬ সংখ্যার পাসওয়ার্ড" id="password" required>
+    <button type="submit">সাবমিট করুন</button>
+  </form>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const user = {
+        name: document.getElementById("name").value,
+        profession: document.getElementById("profession").value,
+        education: document.getElementById("education").value,
+        phone: document.getElementById("phone").value,
+        password: document.getElementById("password").value
+      };
+
+      // ফোন নাম্বার দিয়ে key ধরে রাখি
+      localStorage.setItem("user_" + user.phone, JSON.stringify(user));
+
+      alert("একাউন্ট তৈরি হয়েছে ✅ এখন লগইন করুন");
+      window.location.href = "index.html";
+    });
+  </script>
 </body>
 </html>
