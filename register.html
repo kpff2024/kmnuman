@@ -2,68 +2,89 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <title>একাউন্ট তৈরি করুন</title>
+  <title>রেজিস্ট্রেশন</title>
   <style>
     body {
+      background: #f2f2f2;
       font-family: 'Noto Sans Bengali', sans-serif;
-      background: #eef2f7;
-      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    form {
-      max-width: 500px;
-      margin: auto;
-      background: white;
+    .register-box {
+      background: #fff;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
     }
+    h2 { text-align: center; color: #333; }
     input {
-      display: block;
-      margin-bottom: 15px;
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
+      margin-top: 10px;
       border-radius: 5px;
+      border: 1px solid #ccc;
     }
     button {
-      padding: 10px 20px;
-      background: #007bff;
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background: #28a745;
       color: white;
       border: none;
       border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
+      font-size: 16px;
+    }
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #007bff;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <form id="signupForm">
-    <h2>নতুন একাউন্ট তৈরি করুন</h2>
-    <input type="text" placeholder="নাম" id="name" required>
-    <input type="text" placeholder="পেশা" id="profession" required>
-    <input type="text" placeholder="শিক্ষাগত যোগ্যতা" id="education" required>
-    <input type="text" placeholder="ফোন নম্বর" id="phone" required>
-    <input type="password" placeholder="৬ সংখ্যার পাসওয়ার্ড" id="password" required>
-    <button type="submit">সাবমিট করুন</button>
-  </form>
 
-  <script>
-    document.getElementById("signupForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const user = {
-        name: document.getElementById("name").value,
-        profession: document.getElementById("profession").value,
-        education: document.getElementById("education").value,
-        phone: document.getElementById("phone").value,
-        password: document.getElementById("password").value
-      };
+<div class="register-box">
+  <h2>রেজিস্ট্রেশন করুন</h2>
+  <input type="text" id="phone" placeholder="ফোন নম্বর">
+  <input type="password" id="password" placeholder="পাসওয়ার্ড (৬ ডিজিট)">
+  <button onclick="register()">রেজিস্ট্রেশন করুন</button>
+  <a href="index.html">লগইন করুন</a>
+</div>
 
-      // ফোন নাম্বার দিয়ে key ধরে রাখি
-      localStorage.setItem("user_" + user.phone, JSON.stringify(user));
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXQgSge6v3tOu-GJtpPqhXwzg2n2nmO2s",
+    authDomain: "kmnuman-a9daa.firebaseapp.com",
+    projectId: "kmnuman-a9daa",
+    storageBucket: "kmnuman-a9daa.appspot.com",
+    messagingSenderId: "132530675488",
+    appId: "1:132530675488:web:xyz123abc456"
+  };
+  firebase.initializeApp(firebaseConfig);
 
-      alert("একাউন্ট তৈরি হয়েছে ✅ এখন লগইন করুন");
-      window.location.href = "index.html";
-    });
-  </script>
+  function register() {
+    const phone = document.getElementById('phone').value;
+    const password = document.getElementById('password').value;
+    const email = phone + "@kmnuman.com";
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        alert("রেজিস্ট্রেশন সফল হয়েছে। এখন লগইন করুন।");
+        window.location.href = "index.html";
+      })
+      .catch((error) => {
+        alert("রেজিস্ট্রেশন ব্যর্থ: " + error.message);
+      });
+  }
+</script>
 </body>
 </html>
