@@ -1,39 +1,29 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <title>লগইন করুন</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="firebase-init.js"></script>
+  <meta charset="UTF-8" />
+  <title>লগইন</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase-init.js"></script>
 </head>
 <body>
   <div class="container">
-    <h2>🔐 লগইন করুন</h2>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="📧 ইমেইল লিখুন" required>
-      <input type="password" id="password" placeholder="🔑 পাসওয়ার্ড লিখুন" required>
-      <button type="submit">➡️ লগইন</button>
-    </form>
-    <p>নতুন একাউন্ট? <a href="register.html">রেজিস্টার করুন</a></p>
+    <h2>লগইন করুন</h2>
+    <input type="text" id="phone" placeholder="ফোন নম্বর" />
+    <input type="password" id="password" placeholder="পাসওয়ার্ড" />
+    <button onclick="login()">লগইন</button>
+    <p>একাউন্ট নেই? <a href="register.html">একাউন্ট খুলুন</a></p>
   </div>
-
-  <script type="module">
-    import { auth } from './firebase-init.js';
-    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-    const form = document.getElementById("loginForm");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = form.email.value;
-      const password = form.password.value;
-
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        window.location.href = "home.html";
-      } catch (error) {
-        alert("লগইন ব্যর্থ: " + error.message);
-      }
-    });
+  <script>
+    function login() {
+      const phone = document.getElementById("phone").value + "@example.com";
+      const pass = document.getElementById("password").value;
+      firebase.auth().signInWithEmailAndPassword(phone, pass)
+        .then(() => window.location.href = "home.html")
+        .catch(err => alert("ভুল হয়েছে: " + err.message));
+    }
   </script>
 </body>
 </html>
