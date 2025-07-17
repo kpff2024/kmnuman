@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ভেরিফিকেশন কোড</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-container">
+    <h2>ভেরিফিকেশন কোড দিন</h2>
+    <p>আপনার ফোন নাম্বারে ৪ সংখ্যার একটি কোড পাঠানো হয়েছে।</p>
+    <form action="home.html" method="POST">
+      <input type="text" name="otp" placeholder="৪ সংখ্যার কোড" pattern="[0-9]{4}" required>
+      <button type="submit">যাচাই করুন</button>
+    </form>
+    <p><a href="register.html">পূনরায় কোড পাঠান</a></p>
+  </div>
+</body>
+</html>
