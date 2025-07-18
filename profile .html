@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>প্রোফাইল</title>
+  <style>
+<script>
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!user) {
+    alert("আপনি লগইন করেননি!");
+    window.location.href = "login.html"; // না থাকলে লগইনে পাঠাও
+  } else {
+    document.getElementById("userName").textContent = user.name;
+    document.getElementById("userPhone").textContent = user.phone;
+    document.getElementById("userProfession").textContent = user.profession;
+    document.getElementById("userEducation").textContent = user.education;
+  }
+</script>
+
+    
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .tabs button {
+      padding: 10px 20px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .tabs button.active {
+      background: #0056b3;
+    }
+    .section {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .section.active {
+      display: block;
+    }
+    .card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+<div class="profile-section">
+  <h2>ব্যক্তিগত তথ্য</h2>
+  <p><strong>নাম:</strong> <span id="userName"></span></p>
+  <p><strong>পেশা:</strong> <span id="userProfession"></span></p>
+  <p><strong>শিক্ষাগত যোগ্যতা:</strong> <span id="userEducation"></span></p>
+  <p><strong>ফোন:</strong> <span id="userPhone"></span></p>
+</div>
+
+  
+  <div class="container">
+    <h2>প্রোফাইল</h2><div class="tabs">
+  <button class="tabBtn active" onclick="showTab('personal')">ব্যক্তিগত তথ্য</button>
+  <button class="tabBtn" onclick="showTab('posts')">পোস্ট</button>
+  <button class="tabBtn" onclick="showTab('prescriptions')">প্রেসক্রিপশন</button>
+</div>
+
+<div id="personal" class="section active">
+  <h3>👤 ব্যক্তিগত তথ্য</h3>
+  <p><strong>নাম:</strong> মাহমুদ হাসান</p>
+  <p><strong>পেশা:</strong> প্রাণী চিকিৎসক</p>
+  <p><strong>শিক্ষাগত যোগ্যতা:</strong> ডিভিএম</p>
+  <p><strong>ফোন:</strong> ০১৭xxxxxxxx</p>
+</div>
+
+<div id="posts" class="section">
+  <h3>📄 পোস্ট সমূহ</h3>
+  <div class="card">
+    <p><strong>তারিখ:</strong> ১৪ জুলাই ২০২৫</p>
+    <p><strong>শিরোনাম:</strong> মুরগির শ্বাসকষ্ট</p>
+    <p>মুরগি কাশছে, খাচ্ছে না।</p>
+    <p><em>❤️ অনেক সুন্দর (৫)</em></p>
+  </div>
+  <div class="card">
+    <p><strong>তারিখ:</strong> ১০ জুলাই ২০২৫</p>
+    <p><strong>শিরোনাম:</strong> টিকাদান</p>
+    <p>টিকা দেওয়ার সময়সূচি আলোচনা করা হয়েছে।</p>
+    <p><em>❤️ অনেক সুন্দর (৩)</em></p>
+  </div>
+</div>
+
+<div id="prescriptions" class="section">
+  <h3>🩺 প্রেসক্রিপশন সমূহ</h3>
+  <div class="card">
+    <p><strong>প্রেসক্রিপশন আইডি:</strong> 20250714001</p>
+    <p><strong>তারিখ:</strong> ১৪ জুলাই ২০২৫</p>
+    <button onclick="viewPrescription('20250714001')">👁️ দেখুন</button>
+  </div>
+  <div class="card">
+    <p><strong>প্রেসক্রিপশন আইডি:</strong> 20250710002</p>
+    <p><strong>তারিখ:<<!DOCTYPE html><html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>প্রোফাইল</title>
+  <style>
+<script>
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!user) {
+    alert("আপনি লগইন করেননি!");
+    window.location.href = "login.html"; // না থাকলে লগইনে পাঠাও
+  } else {
+    document.getElementById("userName").textContent = user.name;
+    document.getElementById("userPhone").textContent = user.phone;
+    document.getElementById("userProfession").textContent = user.profession;
+    document.getElementById("userEducation").textContent = user.education;
+  }
+</script>
+
+    
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .tabs button {
+      padding: 10px 20px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .tabs button.active {
+      background: #0056b3;
+    }
+    .section {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .section.active {
+      display: block;
+    }
+    .card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+<div class="profile-section">
+  <h2>ব্যক্তিগত তথ্য</h2>
+  <p><strong>নাম:</strong> <span id="userName"></span></p>
+  <p><strong>পেশা:</strong> <span id="userProfession"></span></p>
+  <p><strong>শিক্ষাগত যোগ্যতা:</strong> <span id="userEducation"></span></p>
+  <p><strong>ফোন:</strong> <span id="userPhone"></span></p>
+</div>
+
+  
+  <div class="container">
+    <h2>প্রোফাইল</h2><div class="tabs">
+  <button class="tabBtn active" onclick="showTab('personal')">ব্যক্তিগত তথ্য</button>
+  <button class="tabBtn" onclick="showTab('posts')">পোস্ট</button>
+  <button class="tabBtn" onclick="showTab('prescriptions')">প্রেসক্রিপশন</button>
+</div>
+
+<div id="personal" class="section active">
+  <h3>👤 ব্যক্তিগত তথ্য</h3>
+  <p><strong>নাম:</strong> মাহমুদ হাসান</p>
+  <p><strong>পেশা:</strong> প্রাণী চিকিৎসক</p>
+  <p><strong>শিক্ষাগত যোগ্যতা:</strong> ডিভিএম</p>
+  <p><strong>ফোন:</strong> ০১৭xxxxxxxx</p>
+</div>
+
+<div id="posts" class="section">
+  <h3>📄 পোস্ট সমূহ</h3>
+  <div class="card">
+    <p><strong>তারিখ:</strong> ১৪ জুলাই ২০২৫</p>
+    <p><strong>শিরোনাম:</strong> মুরগির শ্বাসকষ্ট</p>
+    <p>মুরগি কাশছে, খাচ্ছে না।</p>
+    <p><em>❤️ অনেক সুন্দর (৫)</em></p>
+  </div>
+  <div class="card">
+    <p><strong>তারিখ:</strong> ১০ জুলাই ২০২৫</p>
+    <p><strong>শিরোনাম:</strong> টিকাদান</p>
+    <p>টিকা দেওয়ার সময়সূচি আলোচনা করা হয়েছে।</p>
+    <p><em>❤️ অনেক সুন্দর (৩)</em></p>
+  </div>
+</div>
+
+<div id="prescriptions" class="section">
+  <h3>🩺 প্রেসক্রিপশন সমূহ</h3>
+  <div class="card">
+    <p><strong>প্রেসক্রিপশন আইডি:</strong> 20250714001</p>
+    <p><strong>তারিখ:</strong> ১৪ জুলাই ২০২৫</p>
+    <button onclick="viewPrescription('20250714001')">👁️ দেখুন</button>
+  </div>
+  <div class="card">
+    <p><strong>প্রেসক্রিপশন আইডি:</strong> 20250710002</p>
+    <p><strong>তারিখ:</strong> ১০ জুলাই ২০২৫</p>
+    <button onclick="viewPrescription('20250710002')">👁️ দেখুন</button>
+  </div>
+</div>
+
+  </div>  <script>
+    function showTab(id) {
+      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tabBtn').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function viewPrescription(id) {
+      alert("প্রেসক্রিপশন খোলা হবে: " + id);
+    }
+  </script></body>
+  </html>
+/strong> ১০ জুলাই ২০২৫</p>
+    <button onclick="viewPrescription('20250710002')">👁️ দেখুন</button>
+  </div>
+</div>
+
+  </div>  <script>
+    function showTab(id) {
+      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tabBtn').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    functi </script>
+     
+  
